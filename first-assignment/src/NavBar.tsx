@@ -1,17 +1,11 @@
 import { Input , Row , Col,  Menu , Dropdown} from 'antd'
-//import type { GetProps } from 'antd';
-// import {useState} from 'react'
 import { useNavigate } from 'react-router'
 import { MenuOutlined } from '@ant-design/icons'
-// import { Display } from './Display'
 
 
 
 const { Search } = Input;
-///type SearchProps = GetProps<typeof Input.Search>;
 
-/// get info of search bar to use later
-///const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
 
 export function NavBar() {
 
@@ -22,12 +16,6 @@ export function NavBar() {
             <Menu.Item key="1" onClick={()=> navigate('/profile')}>My Profile</Menu.Item>
         </Menu> 
     )
-
-    // const onSearch = (value: string) => {
-    //     if (value.trim()) {
-    //       navigate(`/search?query=${value}`)
-    //     } 
-    // }
 
     return (
         <Row gutter={[240,0]}>

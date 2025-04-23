@@ -24,10 +24,12 @@ export const filmDB: Film[]=[
 ];
 
 ///function for search
-export function searchFilmName (input: string) {
+export function searchFilmName (input: string| null) {
 
     const listOfMatches: Film[]=[];
-
+    if (input===null) {
+        return filmDB;
+    }
     for (const film of filmDB) {
         if ((film.name.toLowerCase()).includes(input.toLowerCase())) {
             listOfMatches.push(film);
