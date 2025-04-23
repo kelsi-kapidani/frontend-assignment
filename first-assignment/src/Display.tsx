@@ -15,9 +15,13 @@ export function Display () {
     const listOfFilms = searchFilmName(searchValue);
     
     return(
-        <Row gutter={[24,32]} >
+        <Row gutter={[24,32]}>
         {listOfFilms.map(film=>(
-        <Col>
+        <Col
+        xs={24} 
+        sm={12} 
+        md={8}  
+        lg={6}>
         <div onClick={() => navigate(`/films/${film.id}`)}>
             <Card 
                 hoverable
