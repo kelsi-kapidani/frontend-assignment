@@ -2,10 +2,7 @@ import { Input , Row , Col,  Menu , Dropdown} from 'antd'
 import { useNavigate } from 'react-router'
 import { MenuOutlined } from '@ant-design/icons'
 
-
-
 const { Search } = Input;
-
 
 export function NavBar() {
 

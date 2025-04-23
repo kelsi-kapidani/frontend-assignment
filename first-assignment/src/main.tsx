@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
 import { Display } from './Display'
+import { FilmPage } from './FilmPage'
 
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     {
     path:'/search',
     element: <Display />
+    },
+    {
+    path:'/films/:id',
+    element: <FilmPage />
     }
   ]
 }
