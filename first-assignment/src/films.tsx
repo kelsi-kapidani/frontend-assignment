@@ -1,0 +1,23 @@
+export type Film = {
+    id: number;
+    name: string;
+    poster: string;
+    description: string;
+    genres: string[];
+    rating: number;
+};
+
+export const filmDB: Film[]=[
+    {id: 1, name: 'The Wolf Of Wall Street' , poster: 'assets/no_image.jpg' , description: '' , genres: ['comedy','drama','thriller','crime'] , rating: 4.6},
+    {id: 2, name: 'The Dark Knight' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','drama','crime'] , rating: 4.5},
+    {id: 3, name: 'Inception' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','sci-fi','thriller'] , rating: 4.4},
+    {id: 4, name: 'Pulp Fiction' , poster: 'assets/no_image.jpg' , description: '' , genres: ['crime','drama'] , rating: 4.6},
+    {id: 5, name: 'Forrest Gump' , poster: 'assets/no_image.jpg' , description: '' , genres: ['drama','romance'] , rating: 4.4},
+    {id: 6, name: 'The Godfather' , poster: 'assets/no_image.jpg' , description: '' , genres: ['crime','drama'] , rating: 4.6},
+    {id: 7, name: 'Parasite' , poster: 'assets/no_image.jpg' , description: '' , genres: ['drama','thriller'] , rating: 4.6},
+    {id: 8, name: 'Avengers: Endgame' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','adventure','sci-fi'] , rating: 4.3},
+    {id: 9, name: 'Interstellar' , poster: 'assets/no_image.jpg' , description: '' , genres: ['adventure','drama','sci-fi'] , rating: 4.2 },
+    {id: 10, name: 'Fight Club' , poster: 'assets/no_image.jpg' , description: '' , genres: ['drama'] , rating: 4.3 },
+    {id: 11, name: 'The Matrix' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','sci-fi'] , rating: 4.4 },
+    {id: 12, name: 'The Shawshank Redemption' , poster: 'assets/no_image.jpg' , description: '' , genres: ['drama'] , rating: 4.6 }
+];
