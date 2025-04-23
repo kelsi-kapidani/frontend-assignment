@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
+import { Display } from './Display'
 
 
 const router = createBrowserRouter([
@@ -11,7 +12,10 @@ const router = createBrowserRouter([
   children: [
     {
     path:'/profile',
-    element: <App />
+    },
+    {
+      path:'/search',
+      element: <Display />
     }
   ]
 }

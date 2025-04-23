@@ -7,6 +7,7 @@ export type Film = {
     rating: number;
 };
 
+///database of films
 export const filmDB: Film[]=[
     {id: 1, name: 'The Wolf Of Wall Street' , poster: 'assets/no_image.jpg' , description: '' , genres: ['comedy','drama','thriller','crime'] , rating: 4.6},
     {id: 2, name: 'The Dark Knight' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','drama','crime'] , rating: 4.5},
@@ -21,3 +22,17 @@ export const filmDB: Film[]=[
     {id: 11, name: 'The Matrix' , poster: 'assets/no_image.jpg' , description: '' , genres: ['action','sci-fi'] , rating: 4.4 },
     {id: 12, name: 'The Shawshank Redemption' , poster: 'assets/no_image.jpg' , description: '' , genres: ['drama'] , rating: 4.6 }
 ];
+
+///function for search
+export function searchFilmName (input: string) {
+
+    const listOfMatches: Film[]=[];
+
+    for (const film of filmDB) {
+        if ((film.name.toLowerCase()).includes(input.toLowerCase())) {
+            listOfMatches.push(film);
+        }
+    }
+
+    return listOfMatches;
+}
