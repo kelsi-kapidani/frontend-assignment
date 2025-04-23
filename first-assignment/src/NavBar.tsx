@@ -1,7 +1,9 @@
-import { Input , Row , Col,  Menu , Dropdown} from 'antd';
+import { Input , Row , Col,  Menu , Dropdown} from 'antd'
 //import type { GetProps } from 'antd';
+// import {useState} from 'react'
 import { useNavigate } from 'react-router'
 import { MenuOutlined } from '@ant-design/icons'
+// import { Display } from './Display'
 
 
 
@@ -21,6 +23,12 @@ export function NavBar() {
         </Menu> 
     )
 
+    // const onSearch = (value: string) => {
+    //     if (value.trim()) {
+    //       navigate(`/search?query=${value}`)
+    //     } 
+    // }
+
     return (
         <Row gutter={[240,0]}>
         <Col style={{fontSize: '30px' , marginLeft: '5px'}}>IMDB</Col>
@@ -28,7 +36,7 @@ export function NavBar() {
         <Search 
             placeholder="search the name of a film" 
             size="large" 
-            onSearch={()=> navigate('/search')}
+            onSearch={(value)=>navigate(`/search?query=${value}`)}
         />
         </Col>
         <Col>
