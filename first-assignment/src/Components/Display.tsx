@@ -1,4 +1,4 @@
-import { searchFilmName } from "./films"
+import { searchFilmName } from "../films"
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import { Card , Col , Row} from "antd"
@@ -25,12 +25,12 @@ export function Display () {
         <div onClick={() => navigate(`/films/${film.id}`)}>
             <Card 
                 hoverable
-                style={{width: 180 , marginLeft: '10px'}}
+                style={{width: 180 , marginLeft: '40px'}}
                 cover={
                     <img src={film.poster} />
                 }>
             <Meta 
-                title={film.name}
+                title={<div style={{ textAlign: 'center'}}>{film.name}</div>}
                 description={film.description}
             />
             </Card>

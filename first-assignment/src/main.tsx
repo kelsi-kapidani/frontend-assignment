@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
-import { Display } from './Display'
-import { FilmPage } from './FilmPage'
+import { Display } from './Components/Display'
+import { FilmPage } from './Components/FilmPage'
 
 
 const router = createBrowserRouter([

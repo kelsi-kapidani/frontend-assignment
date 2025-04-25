@@ -23,7 +23,7 @@ export const filmDB: Film[]=[
     {id: 12, name: 'The Shawshank Redemption' , poster: '/assets/no_image.jpeg' , description: '' , genres: ['drama'] , rating: 4.6 }
 ];
 
-///function for search
+/// filter db when searching
 export function searchFilmName (input: string| null) {
 
     const listOfMatches: Film[]=[];
@@ -39,6 +39,7 @@ export function searchFilmName (input: string| null) {
     return listOfMatches;
 }
 
+/// find precise film by id
 export function findFilm (input: number | undefined) {
 
     if (input===undefined) {

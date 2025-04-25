@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 import { Flex, Col , Row , Typography , Empty , Tag } from "antd"
-import { findFilm } from './films';
+import { findFilm } from '../films';
 
 const { Title, Paragraph } = Typography;
 

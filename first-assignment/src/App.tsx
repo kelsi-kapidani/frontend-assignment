@@ -1,4 +1,4 @@
-import { NavBar } from './NavBar.tsx'
+import { NavBar } from './Components/NavBar.tsx'
 import { Outlet } from 'react-router'
 import { Row } from 'antd'
 
