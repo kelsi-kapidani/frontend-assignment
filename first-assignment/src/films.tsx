@@ -25,6 +25,9 @@ export const filmDB: Film[]=[
     {id: 12, name: 'The Shawshank Redemption' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['drama'] , rating: 4.6 }
 ];
 
+///list of all genres
+export const allGenres: string[]=['comedy','drama','thriller','crime','action','sci-fi','romance','adventure','horror'];
+
 /// filter db when searching
 export function searchFilmName (input: string| null) {
 

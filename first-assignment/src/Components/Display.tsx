@@ -31,7 +31,7 @@ export function Display () {
                 }>
             <Meta 
                 title={<div style={{ textAlign: 'center'}}>{film.name}</div>}
-                description={film.description}
+                description=""
             />
             </Card>
         </div>
