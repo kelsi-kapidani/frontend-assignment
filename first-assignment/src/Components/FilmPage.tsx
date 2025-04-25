@@ -12,16 +12,16 @@ export function FilmPage () {
     return (
         <>
         {currentFilm===null ? (<Empty/>) : (
-        <Row>
+        <Row  gutter={16} wrap={false}>
             <Col>
             <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
             </Col>
             <Col>
             <Title>{currentFilm.name}</Title>
-            <Flex justify='space-between'>
+            <Flex justify='space-around'>
                 {currentFilm.genres.map((genre) => (<Tag>{genre}</Tag>))}
             </Flex>
-            <Paragraph>{currentFilm.description}</Paragraph>
+            <Paragraph style={{marginTop:'20px'}}>{currentFilm.description}</Paragraph>
             </Col>
         </Row>
         )}
