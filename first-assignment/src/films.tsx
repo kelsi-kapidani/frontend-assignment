@@ -28,15 +28,26 @@ export const filmDB: Film[]=[
 ///list of all genres
 export const allGenres: string[]=['comedy','drama','thriller','crime','action','sci-fi','romance','adventure','horror'];
 
-/// filter db when searching
-export function searchFilmName (input: string| null) {
+/// filter db when searching based on name and genre
+export function searchFilm (name: string | null , genres: string []) {
 
     const listOfMatches: Film[]=[];
-    if (input===null) {
-        return filmDB;
+    let listGenreFiltered: Film[]=[];
+
+    if (genres.length===0) {
+        listGenreFiltered=filmDB;
+    }else{
+        for (const film of filmDB) {
+            if (genres.every(item=>film.genres.includes(item))) {
+             listGenreFiltered.push(film);
+            }
+     }
     }
-    for (const film of filmDB) {
-        if ((film.name.toLowerCase()).includes(input.toLowerCase())) {
+    if (name===null) {
+        return  listGenreFiltered;
+    }
+    for (const film of  listGenreFiltered) {
+        if ((film.name.toLowerCase()).includes(name.toLowerCase())) {
             listOfMatches.push(film);
         }
     }

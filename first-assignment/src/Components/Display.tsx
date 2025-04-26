@@ -1,4 +1,4 @@
-import { searchFilmName } from "../films"
+import { searchFilm } from "../films"
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import { Card , Col , Row} from "antd"
@@ -12,7 +12,9 @@ export function Display () {
     const url = useLocation();
     const queryParams = new URLSearchParams(url.search);
     const searchValue = queryParams.get('query'); 
-    const listOfFilms = searchFilmName(searchValue);
+    const searchGenresString = queryParams.get('genres');
+    const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
+    const listOfFilms = searchFilm(searchValue, searchGenresArray);
     
     return(
         <Row gutter={[24,32]}>
