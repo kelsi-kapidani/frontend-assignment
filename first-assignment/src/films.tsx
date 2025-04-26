@@ -46,7 +46,7 @@ export function searchFilm (name: string | null , genres: string []) {
     if (name===null) {
         return  listGenreFiltered;
     }
-    for (const film of  listGenreFiltered) {
+    for (const film of listGenreFiltered) {
         if ((film.name.toLowerCase()).includes(name.toLowerCase())) {
             listOfMatches.push(film);
         }

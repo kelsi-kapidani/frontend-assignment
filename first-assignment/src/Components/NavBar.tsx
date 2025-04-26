@@ -31,7 +31,7 @@ export function NavBar() {
         <Search 
             placeholder="search the name of a film" 
             size="large" 
-            onSearch={(value)=>navigate(`/search?query=${value}&genres=${selectedGenres}`)}
+            onSearch={(value)=>navigate(`/search?name=${value}&genres=${selectedGenres}`)}
         />
         </Col>
         <Col style={{marginTop:'5px'}}>

@@ -11,7 +11,7 @@ export function Display () {
 
     const url = useLocation();
     const queryParams = new URLSearchParams(url.search);
-    const searchValue = queryParams.get('query'); 
+    const searchValue = queryParams.get('name'); 
     const searchGenresString = queryParams.get('genres');
     const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
     const listOfFilms = searchFilm(searchValue, searchGenresArray);
