@@ -1,4 +1,4 @@
-import { Input , Row , Col,  Menu , Dropdown , Checkbox } from 'antd'
+import { Input , Row , Col,  Menu , Dropdown , Checkbox , Flex } from 'antd'
 import { useNavigate } from 'react-router'
 import { MenuOutlined , FilterOutlined} from '@ant-design/icons'
 import { allGenres } from '../films'
@@ -21,20 +21,18 @@ export function NavBar() {
     const menu2 = (
         <Checkbox.Group style={{justifyContent: 'start'}} options={allGenres} value={selectedGenres} onChange={(checkedValues) => {setSelectedGenres(checkedValues);  console.log('Checked values:', checkedValues);}}/> 
     )
-
+ 
     return (
-        <Row gutter={{ xs: 50, sm: 110, md: 225, lg: 555 }}>
+        <Row justify='space-evenly' align="middle" style={{ padding: '10px 20px', width: '100%' }}>
         <Col style={{fontSize: '30px' , marginLeft: '5px', cursor:'pointer'}} onClick={()=>navigate('/')}>IMDB</Col>
-        <Col>
-        <Row gutter={8}>
-        <Col>
+        <Col flex="auto">
+        <Flex align="center" justify="center" gap="small">
         <Search 
             placeholder="search the name of a film" 
             size="large" 
             onSearch={(value)=>navigate(`/search?name=${value}&genres=${selectedGenres}`)}
+            style={{ width: '250px' }}
         />
-        </Col>
-        <Col style={{marginTop:'5px'}}>
         <Dropdown 
             overlay={menu2} 
             placement='bottomRight'
@@ -42,8 +40,7 @@ export function NavBar() {
             trigger={['click']}>
             {<FilterOutlined style={{fontSize:"30px" , justifyContent:"center"}}/>}
         </Dropdown>
-        </Col>
-        </Row>
+        </Flex>
         </Col>
         <Col>
         <Dropdown overlay={menu1} trigger={['click']} placement="bottomLeft">

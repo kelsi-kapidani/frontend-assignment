@@ -81,25 +81,31 @@ export function Display () {
         return(
         <Row gutter={[24,32]}>
         {listOfFilms.map(film=>(
-        <Col
-        xs={24} 
-        sm={12} 
-        md={8}  
-        lg={6}>
-        <div onClick={() => navigate(`/films/${film.id}`)}>
-            <Card 
-                hoverable
-                style={{width: 180 , marginLeft: '40px'}}
-                cover={
-                    <img src={film.poster} />
-                }>
-            <Meta 
-                title={<div style={{ textAlign: 'center'}}>{film.name}</div>}
-                description=""
-            />
-            </Card>
-        </div>
-        </Col>
+             <Col xs={12} key={film.id}>
+             <div onClick={() => navigate(`/films/${film.id}`)}>
+               <Card
+                 hoverable
+                 style={{
+                   width: '100%',
+                   borderRadius: '10px',
+                 }}
+                 cover={<img
+                    src={film.poster}
+                    alt={film.name}
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                    }}/>
+                 }>
+                <Meta
+                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' }}>{film.name}</div>}
+                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' }}>{film.genres.join(', ')}</div>}
+                />
+               </Card>
+             </div>
+           </Col>
         ))}
         </Row>
         )
@@ -109,7 +115,7 @@ export function Display () {
         columns={columns}
         dataSource={listOfFilms}
         rowKey="id"
-        pagination={{ pageSize: 8 }}
+        pagination={{ pageSize: 10 }}
       />
     )
     
