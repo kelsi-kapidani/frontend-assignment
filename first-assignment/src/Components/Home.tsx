@@ -7,7 +7,7 @@ console.log(filmDB);
 export function Home () {
 
     return (
-        <Carousel autoplay={{ dotDuration: true }} autoplaySpeed={500000}>
+        <Carousel autoplay autoplaySpeed={500000}>
         {filmDB.map((film)=>(
             <div key={film.id}>
                 <img 

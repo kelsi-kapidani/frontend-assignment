@@ -29,7 +29,7 @@ export function NavBar() {
         <Search 
             placeholder="search the name of a film" 
             size="large" 
-            onSearch={(value)=>navigate(`/search?name=${value}&genres=${selectedGenres}`)}
+            onSearch={(value)=>{setSelectedGenres([]);navigate(`/search?name=${value}&genres=${selectedGenres}`)}}
             style={{ width: '250px' ,
                 color: '#FFF099',    
                 borderColor: '#333333'}}
@@ -49,9 +49,9 @@ export function NavBar() {
         <MenuOutlined style={{fontSize:'25px' , color:'#333333'}} onClick={()=>setOpen(true)}/>
         <Drawer width='200' style={{backgroundColor:'#333333'}} maskClosable={true}  closable={false} onClose={()=>setOpen(false)} open={open}>
         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
-            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setOpen(false);navigate('/home')}}>Home</Menu.Item>
-            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
-            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>navigate(`/search?name=&genres=`)}>Library</Menu.Item>
+            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/home')}}>Home</Menu.Item>
+            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
+                <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
         </Menu>
         </Drawer>
