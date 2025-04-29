@@ -21,7 +21,7 @@ export function NavBar() {
  
     return (
         <Row justify='space-evenly' align="middle" style={{ padding: '10px 20px', width: '100%' , backgroundColor:'#F5B800'}}>
-        <Col style={{fontSize: '30px' , marginLeft: '5px', cursor:'pointer' , color:'#333333'}} onClick={()=>navigate('/')}>IMDB</Col>
+        <Col style={{fontSize: '30px' , marginLeft: '5px', cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate('/')}>IMDB</Col>
         <Col flex="auto">
         <Flex align="center" justify="center" gap="small">
         <Search 

@@ -23,13 +23,13 @@ export function FilmPage () {
                 <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
             </Row>
             <Row>
-            <Title>{currentFilm.name}</Title>
+            <Title style={{color:'#ffffff'}}>{currentFilm.name}</Title>
             </Row>
             <Row>
             <Flex justify='space-around'>
-                 {currentFilm.genres.map((genre) => (<Tag style={{cursor:'pointer'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
+                 {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
             </Flex>
-            <Paragraph style={{marginTop:'20px'}}>{currentFilm.description}</Paragraph>
+            <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Row>
             </Col>
             )}
@@ -44,11 +44,11 @@ export function FilmPage () {
             <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
             </Col>
             <Col>
-            <Title>{currentFilm.name}</Title>
+            <Title style={{color:'#ffffff'}}>{currentFilm.name}</Title>
             <Flex justify='space-around'>
-                {currentFilm.genres.map((genre) => (<Tag style={{cursor:'pointer'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
+                {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
             </Flex>
-            <Paragraph style={{marginTop:'20px'}}>{currentFilm.description}</Paragraph>
+            <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Col>
         </Row>
         )}
