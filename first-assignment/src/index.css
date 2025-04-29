@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +65,39 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+body {
+  margin: 0;
+}
+.custom-menu .ant-menu-item {
+  color: #ffffff !important;
+  background-color: #333333 !important;
+  transition: background-color 0.3s ease;
+}
+
+.custom-menu .ant-menu-item:hover,
+.custom-menu .ant-menu-item-selected {
+  background-color: #F5B800 !important;
+}
+
+.custom-search input::placeholder {
+  color: #F5B800;
+}
+.custom-search .ant-input-search-button {
+  background-color: #333333;
+  border-color: #333333;
+  color: #F5B800;
+}
+
+.custom-search .ant-input-search-button:hover,
+.custom-search .ant-input-search-button:focus {
+  background-color: #444444 !important;
+  border-color: #444444 !important;
+  color: #FFD633 !important;
+}
+
+.custom-search .ant-input {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #333333;
 }
