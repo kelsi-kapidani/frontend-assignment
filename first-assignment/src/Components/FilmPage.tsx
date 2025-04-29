@@ -46,6 +46,39 @@ export function FilmPage () {
             <Row>
             <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Row>
+            <Row><div style={{color:'#ffffff' , fontWeight:'bold' , fontSize:'30px' , marginBottom:'30px' , marginTop:'50px'}}>More like this</div></Row>
+        <Row gutter={[24,32]}>
+        {similiarFilms.map(film=>(
+             <Col xs={12} key={film.id}>
+             <div onClick={() => navigate(`/films/${film.id}`)}>
+               <Card
+                 hoverable
+                 style={{
+                   width: '100%',
+                   borderRadius: '10px',
+                   height: '325px',
+                   backgroundColor: '#333333',
+                   border:'none'
+                 }}
+                 cover={<img
+                    src={film.poster}
+                    alt={film.name}
+                    style={{
+                      width: '100%',
+                      height: '200px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                    }}/>
+                 }>
+                <Meta
+                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.name}</div>}
+                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '60px' , color: '#dcdcdc'}}>{film.genres.join(', ')}</div>}
+                />
+               </Card>
+             </div>
+           </Col>
+        ))}
+        </Row>
             </Col>
             )}
             </>

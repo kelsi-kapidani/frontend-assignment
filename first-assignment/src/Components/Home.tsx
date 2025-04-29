@@ -5,9 +5,9 @@ import { filmDB } from '../films.tsx'
 console.log(filmDB);
 
 export function Home () {
-
+    
     return (
-        <Carousel autoplay autoplaySpeed={500000}>
+        <Carousel autoplay autoplaySpeed={5000}>
         {filmDB.map((film)=>(
             <div key={film.id}>
                 <img 
