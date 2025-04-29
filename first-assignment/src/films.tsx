@@ -7,33 +7,47 @@ export type Film = {
     rating: number;
 };
 
-const defaultDescription= 'This is a defualt text for the description of the movie, as at the moment there is no entry in the database for this specific movie desrcription';
+// const defaultDescription= 'This is a defualt text for the description of the movie, as at the moment there is no entry in the database for this specific movie desrcription';
 
 ///database of films
 export const filmDB: Film[]=[
-    {id: 1, name: 'The Wolf Of Wall Street' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['comedy','drama','thriller','crime'] , rating: 4.6},
-    {id: 2, name: 'The Dark Knight' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['action','drama','crime'] , rating: 4.5},
-    {id: 3, name: 'Inception' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['action','sci-fi','thriller'] , rating: 4.4},
-    {id: 4, name: 'Pulp Fiction' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['crime','drama'] , rating: 4.6},
-    {id: 5, name: 'Forrest Gump' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['drama','romance'] , rating: 4.4},
-    {id: 6, name: 'The Godfather' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['crime','drama'] , rating: 4.6},
-    {id: 7, name: 'Parasite' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['drama','thriller'] , rating: 4.6},
-    {id: 8, name: 'Avengers: Endgame' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['action','adventure','sci-fi'] , rating: 4.3},
-    {id: 9, name: 'Interstellar' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['adventure','drama','sci-fi'] , rating: 4.2 },
-    {id: 10, name: 'Fight Club' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['drama'] , rating: 4.3 },
-    {id: 11, name: 'The Matrix' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['action','sci-fi'] , rating: 4.4 },
-    {id: 12, name: 'The Shawshank Redemption' , poster: '/assets/no_image.jpeg' , description: defaultDescription , genres: ['drama'] , rating: 4.6 }
+    {id: 1, name: 'The Wolf Of Wall Street' , poster: '/assets/twows.jpg' , description: 'A stockbroker rises to prominence through corruption and fraud, leading to a lavish lifestyle and eventual downfall.' , genres: ['comedy','drama','thriller','crime'] , rating: 4.6},
+    {id: 2, name: 'The Dark Knight' , poster: '/assets/tdk.jpg' , description: 'Batman faces the Joker, a criminal mastermind who plunges Gotham into chaos, challenging the hero\'s moral code.' , genres: ['action','drama','crime'] , rating: 4.5},
+    {id: 3, name: 'Inception' , poster: '/assets/i.jpg' , description: 'A skilled thief enters people\'s dreams to steal secrets but is tasked with planting an idea instead.' , genres: ['action','sci-fi','thriller'] , rating: 4.4},
+    {id: 4, name: 'Pulp Fiction' , poster: '/assets/pf.jpg' , description: 'Interwoven stories of crime and redemption unfold in a stylized narrative filled with dark humor.' , genres: ['crime','drama'] , rating: 4.6},
+    {id: 5, name: 'Forrest Gump' , poster: '/assets/fg.jpg' , description: 'A man with a low IQ recounts his extraordinary life, touching on historical events and personal triumphs.' , genres: ['drama','romance'] , rating: 4.4},
+    {id: 6, name: 'The Godfather' , poster: '/assets/tg.jpg' , description: 'The aging patriarch of an organized crime dynasty transfers control to his reluctant son.' , genres: ['crime','drama'] , rating: 4.6},
+    {id: 7, name: 'Parasite' , poster: '/assets/p.jfif' , description: 'A poor family schemes to become employed by a wealthy household, leading to unexpected consequences.' , genres: ['drama','thriller'] , rating: 4.6},
+    {id: 8, name: 'Avengers: Endgame' , poster: '/assets/ae.jpg' , description: 'The Avengers assemble once more to reverse Thanos\' actions and restore balance to the universe.' , genres: ['action','adventure','sci-fi'] , rating: 4.3},
+    {id: 9, name: 'Interstellar' , poster: '/assets/is.jpg' , description: 'A team of explorers travels through a wormhole in space in an attempt to ensure humanity\'s survival.' , genres: ['adventure','drama','sci-fi'] , rating: 4.2 },
+    {id: 10, name: 'Fight Club' , poster: '/assets/fc.jpg' , description: 'An insomniac office worker forms an underground fight club that evolves into something much more.' , genres: ['drama'] , rating: 4.3 },
+    {id: 11, name: 'The Matrix' , poster: '/assets/tm.jpg' , description: 'A computer hacker learns about the true nature of his reality and his role in the war against its controllers.' , genres: ['action','sci-fi'] , rating: 4.4 },
+    {id: 12, name: 'The Shawshank Redemption' , poster: '/assets/tsr.jpg' , description: 'Two imprisoned men bond over years, finding solace and eventual redemption through acts of common decency.' , genres: ['drama'] , rating: 4.6 }
 ];
 
-/// filter db when searching
-export function searchFilmName (input: string| null) {
+///list of all genres
+export const allGenres: string[]=['comedy','drama','thriller','crime','action','sci-fi','romance','adventure','horror'];
+
+/// filter db when searching based on name and genre
+export function searchFilm (name: string | null , genres: string []) {
 
     const listOfMatches: Film[]=[];
-    if (input===null) {
-        return filmDB;
+    let listGenreFiltered: Film[]=[];
+
+    if (genres.length===0) {
+        listGenreFiltered=filmDB;
+    }else{
+        for (const film of filmDB) {
+            if (genres.every(item=>film.genres.includes(item))) {
+             listGenreFiltered.push(film);
+            }
+     }
     }
-    for (const film of filmDB) {
-        if ((film.name.toLowerCase()).includes(input.toLowerCase())) {
+    if (name===null) {
+        return  listGenreFiltered;
+    }
+    for (const film of listGenreFiltered) {
+        if ((film.name.toLowerCase()).includes(name.toLowerCase())) {
             listOfMatches.push(film);
         }
     }
