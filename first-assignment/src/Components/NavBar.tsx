@@ -23,7 +23,7 @@ export function NavBar() {
  
     return (
         <Row justify='space-evenly' align="middle" style={{ padding: '10px 20px', width: '100%' , backgroundColor:'#F5B800'}}>
-        <Col style={{fontSize: '30px' , marginLeft: '5px', cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate('/')}>IMDB</Col>
+        <Col style={{fontSize: '30px' , marginLeft: '5px', cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate('/home')}>IMDB</Col>
         <Col flex="auto">
         <Flex align="center" justify="center" gap="small">
         <Search 
@@ -49,8 +49,9 @@ export function NavBar() {
         <MenuOutlined style={{fontSize:'25px' , color:'#333333'}} onClick={()=>setOpen(true)}/>
         <Drawer width='200' style={{backgroundColor:'#333333'}} maskClosable={true}  closable={false} onClose={()=>setOpen(false)} open={open}>
         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
+            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setOpen(false);navigate('/home')}}>Home</Menu.Item>
             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
-            <Menu.Item style={{color:'#FFFFFF'}}>Library</Menu.Item>
+            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>navigate(`/search?name=&genres=`)}>Library</Menu.Item>
             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
         </Menu>
         </Drawer>

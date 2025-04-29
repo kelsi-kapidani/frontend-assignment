@@ -115,7 +115,7 @@ export function Display () {
         columns={columns}
         dataSource={listOfFilms}
         rowKey="id"
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 7 }}
         className="custom-table"
         onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
         style={{cursor:'pointer'}}
