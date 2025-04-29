@@ -88,6 +88,9 @@ export function Display () {
                  style={{
                    width: '100%',
                    borderRadius: '10px',
+                   height: '325px',
+                   backgroundColor: '#333333',
+                   border:'none'
                  }}
                  cover={<img
                     src={film.poster}
@@ -100,8 +103,8 @@ export function Display () {
                     }}/>
                  }>
                 <Meta
-                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' }}>{film.name}</div>}
-                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' }}>{film.genres.join(', ')}</div>}
+                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.name}</div>}
+                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '60px' , color: '#dcdcdc'}}>{film.genres.join(', ')}</div>}
                 />
                </Card>
              </div>
