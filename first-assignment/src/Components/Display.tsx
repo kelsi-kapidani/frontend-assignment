@@ -116,6 +116,7 @@ export function Display () {
         dataSource={listOfFilms}
         rowKey="id"
         pagination={{ pageSize: 10 }}
+        className="custom-table"
       />
     )
     

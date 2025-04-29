@@ -1,7 +1,6 @@
 import { Menu , Input , Row , Col , Dropdown , Checkbox , Flex , Drawer } from 'antd'
 import { useNavigate } from 'react-router'
 import { MenuOutlined , FilterOutlined} from '@ant-design/icons'
-import { SearchOutlined } from '@ant-design/icons';
 import { allGenres } from '../films'
 import { useState } from 'react'
 import '../index.css'
