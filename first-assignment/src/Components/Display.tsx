@@ -28,7 +28,6 @@ export function Display () {
                 src={film.poster} 
                 alt={film.name} 
                 style={{ width: 80, height: 'auto', cursor: 'pointer' }} 
-                onClick={() => navigate(`/films/${film.id}`)}
               />
             ),
           },
@@ -39,7 +38,6 @@ export function Display () {
             render: (_: string, film: Film) => (
               <div 
                 style={{ textAlign: 'center', cursor: 'pointer' }} 
-                onClick={() => navigate(`/films/${film.id}`)}
               >
                 {film.name}
               </div>
@@ -76,7 +74,6 @@ export function Display () {
           ),
         },
       ];
-
     if (screens.xs) {
         return(
         <Row gutter={[24,32]}>
@@ -120,6 +117,9 @@ export function Display () {
         rowKey="id"
         pagination={{ pageSize: 10 }}
         className="custom-table"
+        onRow={(record) => ({
+          onClick: () => navigate(`/films/${record.id}`),  // Navigate when row is clicked
+        })}
       />
     )
     
