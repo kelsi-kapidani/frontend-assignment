@@ -9,7 +9,6 @@ body {
   background-color: #333333 !important;
   transition: background-color 0.3s ease;
 }
-
 .custom-menu .ant-menu-item:hover,
 .custom-menu .ant-menu-item-selected {
   background-color: #F5B800 !important;
@@ -24,14 +23,12 @@ body {
   border-color: #333333;
   color: #F5B800;
 }
-
 .custom-search .ant-input-search-button:hover,
 .custom-search .ant-input-search-button:focus {
   background-color: #444444 !important;
   border-color: #444444 !important;
   color: #FFD633 !important;
 }
-
 .custom-search .ant-input {
   background-color: #333333;
   color: #ffffff;
@@ -43,12 +40,10 @@ body {
   background-color: #333333;  
   color: #ffffff;            
 }
-
 .custom-table .ant-table-thead > tr > th::after,
 .custom-table .ant-table-thead > tr > th::before {
   background-color: #F5B800 !important;
 }
-
 .custom-table .ant-table-thead > tr > th {
   background-color: #444444;  
   color: #ffffff;             
@@ -56,13 +51,11 @@ body {
   border-bottom: 2px solid #F5B800;
   border-right: none ;
 }
-
 .custom-table .ant-table-tbody > tr > td {
   background-color: #333333;  
   color: #ffffff;  
   border-bottom: 1px solid #F5B800;           
 }
-
 .custom-table .ant-table-tbody > tr:hover > td {
   background-color: #2d2d2d !important;  
 }
@@ -73,21 +66,17 @@ body {
   background-color: #F5B800;
   font-weight: bold;
 }
-
 .custom-table .ant-pagination-item:hover,
 .custom-table .ant-pagination-item-active {
   color: #FFD633; 
   background-color: #FFD633!important ;
 }
-
 .custom-table .ant-pagination-item-active a {
   color: #333333 !important; 
 }
-
 .custom-table .ant-pagination-item-active.ant-pagination-item-active {
   border-color: #F5B800 !important; 
 }
-
 .custom-table .ant-pagination-prev .ant-pagination-item-link,
 .custom-table .ant-pagination-next .ant-pagination-item-link {
   color: #F5B800; 
@@ -97,16 +86,13 @@ body {
 .custom-checkbox-group .ant-checkbox-wrapper {
   color: #ffffff;
 }
-
 .custom-checkbox-group .ant-checkbox-inner {
   border-color: #F5B800 !important;
 }
-
 .custom-checkbox-group .ant-checkbox-checked .ant-checkbox-inner {
   background-color: #FFD633 !important;
   border-color: #FFD633 !important;
 }
-
 .custom-checkbox-group .ant-checkbox-checked .ant-checkbox-inner::after {
   border-color: #333333 !important; 
 }
