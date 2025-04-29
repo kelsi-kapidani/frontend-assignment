@@ -27,7 +27,7 @@ export function Display () {
               <img 
                 src={film.poster} 
                 alt={film.name} 
-                style={{ width: 80, height: 'auto', cursor: 'pointer' }} 
+                style={{ width: 80, height: 'auto'}} 
               />
             ),
           },
@@ -37,7 +37,7 @@ export function Display () {
             key: 'name',
             render: (_: string, film: Film) => (
               <div 
-                style={{ textAlign: 'center', cursor: 'pointer' }} 
+                style={{ textAlign: 'center'}} 
               >
                 {film.name}
               </div>
@@ -117,9 +117,8 @@ export function Display () {
         rowKey="id"
         pagination={{ pageSize: 10 }}
         className="custom-table"
-        onRow={(record) => ({
-          onClick: () => navigate(`/films/${record.id}`),  // Navigate when row is clicked
-        })}
+        onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
+        style={{cursor:'pointer'}}
       />
     )
     

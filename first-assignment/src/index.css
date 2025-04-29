@@ -92,3 +92,21 @@ body {
 .custom-table .ant-pagination-next .ant-pagination-item-link {
   color: #F5B800; 
 }
+
+/*checkbox*/
+.custom-checkbox-group .ant-checkbox-wrapper {
+  color: #ffffff;
+}
+
+.custom-checkbox-group .ant-checkbox-inner {
+  border-color: #F5B800 !important;
+}
+
+.custom-checkbox-group .ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #FFD633 !important;
+  border-color: #FFD633 !important;
+}
+
+.custom-checkbox-group .ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: #333333 !important; 
+}

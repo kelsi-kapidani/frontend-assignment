@@ -16,7 +16,9 @@ export function NavBar() {
     const navigate = useNavigate()
 
     const menu2 = (
-        <Checkbox.Group style={{justifyContent: 'start'}} options={allGenres} value={selectedGenres} onChange={(checkedValues) => {setSelectedGenres(checkedValues);  console.log('Checked values:', checkedValues);}}/> 
+        <div className='custom-checkbox-group'>
+        <Checkbox.Group style={{justifyContent: 'start', color:'#ffffff'}} options={allGenres} value={selectedGenres} onChange={(checkedValues) => {setSelectedGenres(checkedValues);  console.log('Checked values:', checkedValues);}}/> 
+        </div>
     )
  
     return (
@@ -37,7 +39,7 @@ export function NavBar() {
         <Dropdown 
             overlay={menu2} 
             placement='bottomRight'
-            overlayStyle={{ marginTop:'10px', width: 280,  backgroundColor:'#f0f0f0', borderRadius:'5px'}} 
+            overlayStyle={{ marginTop:'15px', width: 290,  backgroundColor:'#444444', borderRadius:'5px'}} 
             trigger={['click']}>
             {<FilterOutlined style={{fontSize:"30px" , justifyContent:"center" , color:'#333333'}}/>}
         </Dropdown>
