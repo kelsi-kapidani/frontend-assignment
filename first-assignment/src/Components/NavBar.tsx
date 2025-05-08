@@ -51,7 +51,7 @@ export function NavBar() {
         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/home')}}>Home</Menu.Item>
             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
-                <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
+            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
         </Menu>
         </Drawer>
