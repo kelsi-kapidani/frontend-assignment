@@ -1,23 +1,40 @@
-import { searchFilm , Film } from "../films"
+import { Film } from "../../DB/films"
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import { Card , Col , Row , Table , Grid } from "antd"
+import { searchMovie } from "../../DB/imdb";
+import { useCallback, useEffect, useState } from 'react';
 
 const { Meta } = Card;
 const { useBreakpoint } = Grid;
 
-export function Display () {
+export function SearchResult () {
     
     const navigate = useNavigate()
     const screens = useBreakpoint();
 
+    const [listOfFilms, setListOfFilms] = useState<Film[]>([]);
+
     const url = useLocation();
     const queryParams = new URLSearchParams(url.search);
-    const searchValue = queryParams.get('name'); 
-    const searchGenresString = queryParams.get('genres');
-    const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
-    const listOfFilms = searchFilm(searchValue, searchGenresArray);
-    
+    const mname = queryParams.get('name');
+    const mgenres = queryParams.get('genres');
+    const mgenresarray = mgenres ? mgenres.split(',').map(genre => genre.charAt(0).toUpperCase()) : [];
+
+    const fetchMovies = useCallback(async () => {
+        if (mname) {
+            const movies = await searchMovie(mname, mgenresarray);
+            if (movies) {
+                setListOfFilms(movies); 
+            }
+        }
+    }, [mname, mgenresarray]);
+
+    useEffect(() => {
+        fetchMovies(); 
+    }, [fetchMovies]);
+      
+
     const columns = [
         {
             title: 'Poster',
@@ -41,7 +58,7 @@ export function Display () {
               >
                 {film.name}
               </div>
-            ),
+            )
           },
         {
           title: 'Genres',
@@ -49,7 +66,9 @@ export function Display () {
           key: 'genres',
           render: (genres: string[]) => (
             <div style={{ textAlign: 'center' }}>
-              {genres.join(', ')}
+              {Array.isArray(genres) && genres.length > 0
+                  ? genres.join(', ')
+                  : 'No genres available'}
             </div>
           ),
         },
@@ -76,8 +95,8 @@ export function Display () {
       ];
     if (screens.xs) {
         return(
-        <Row gutter={[24,32]}>
-        {listOfFilms.map(film=>(
+            <Row gutter={[24,32]}>
+            {listOfFilms.map(film=>(
              <Col xs={12} key={film.id}>
              <div onClick={() => navigate(`/films/${film.id}`)}>
                <Card
@@ -91,7 +110,6 @@ export function Display () {
                  }}
                  cover={<img
                     src={film.poster}
-                    alt={film.name}
                     style={{
                       width: '100%',
                       height: '200px',
@@ -111,15 +129,17 @@ export function Display () {
         )
     }
         return (
-        <Table
-        columns={columns}
-        dataSource={listOfFilms}
-        rowKey="id"
-        pagination={{ pageSize: 7 }}
-        className="custom-table"
-        onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
-        style={{cursor:'pointer'}}
-      />
-    )
-    
+            <>
+              <Table
+                    columns={columns}
+                    dataSource={listOfFilms}
+                    rowKey="id"
+                    pagination={{ pageSize: 7 }}
+                    className="custom-table"
+                    onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
+                    style={{cursor:'pointer'}}
+                />
+            
+              </>
+        ) 
 }

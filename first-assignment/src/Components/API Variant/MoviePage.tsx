@@ -1,30 +1,45 @@
 import { useParams } from 'react-router'
 import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
-import { Film , findFilm , searchFilm } from '../films'
+import { Film , searchFilm } from '../../DB/films'
 import { useNavigate } from 'react-router'
 import { StarOutlined } from '@ant-design/icons'
 import Meta from 'antd/es/card/Meta'
+import { getMovie } from '../../DB/imdb'
+import { useCallback, useEffect, useState } from 'react'
 
 const { useBreakpoint } = Grid;
 const { Title, Paragraph } = Typography;
 
-export function FilmPage () {
+export function MoviePage () {
 
     const navigate = useNavigate();
     const screens = useBreakpoint();
-
     const { id } = useParams();
-    const currentFilm = findFilm(Number(id));
+    const [currentFilm, setCurrentFilm] = useState<Film>();
     const similiarFilms: Film[] = [];
-    if (currentFilm!=null) {
-        for (const genre of currentFilm.genres) {
-            searchFilm('',[genre]).forEach(item => {
-                if (!similiarFilms.some(f => f.id === item.id)) {
-                    similiarFilms.push(item);
+
+    const fetchMovie = useCallback(async () => {
+            if (id) {
+                const movie = await getMovie(id);
+                if (movie) {
+                    setCurrentFilm(movie); 
+                    if (currentFilm!=null) {
+                        for (const genre of currentFilm.genres) {
+                            searchFilm('',[genre]).forEach(item => {
+                                if (!similiarFilms.some(f => f.id === item.id)) {
+                                    similiarFilms.push(item);
+                                }
+                            })
+                        }
+                    }
                 }
-            })
-        }
-    }
+            }
+        }, [id]);
+    
+        useEffect(() => {
+            fetchMovie(); 
+        }, [fetchMovie]);
+    
     if (screens.xs) {
         return(
             <>

@@ -1,6 +1,6 @@
 import '../index.css'
 import { Carousel } from 'antd'
-import { filmDB } from '../films.tsx'
+import { filmDB } from '../DB/films.tsx'
 
 console.log(filmDB);
 
