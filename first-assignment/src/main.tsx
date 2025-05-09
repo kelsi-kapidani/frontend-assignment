@@ -2,9 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
-import { Display } from './Components/Display'
-import { FilmPage } from './Components/FilmPage'
-
+import { Display } from './Components/non-API Variant/Display'
+import { FilmPage } from './Components/non-API Variant/FilmPage'
+import { Home } from './Components/Home'
+// import { SearchResult } from './Components/API Variant/SerachResult'
+// import { MoviePage } from './Components/API Variant/MoviePage'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
     {
     path:'/films/:id',
     element: <FilmPage />
+    },
+    {
+    path:'/home',
+    element: <Home />
     }
   ]
 }
