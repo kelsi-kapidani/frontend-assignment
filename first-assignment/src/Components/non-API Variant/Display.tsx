@@ -85,7 +85,7 @@ export function Display () {
                  style={{
                    width: '100%',
                    borderRadius: '10px',
-                   height: '325px',
+                   height: '425px',
                    backgroundColor: '#333333',
                    border:'none'
                  }}
@@ -94,7 +94,7 @@ export function Display () {
                     alt={film.name}
                     style={{
                       width: '100%',
-                      height: '200px',
+                      height: '300px',
                       objectFit: 'cover',
                       borderRadius: '8px',
                     }}/>
