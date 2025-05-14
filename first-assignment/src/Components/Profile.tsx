@@ -3,6 +3,8 @@ import { Col , Row , Typography , Empty , Grid , Card } from "antd"
 import { useNavigate } from 'react-router'
 import Meta from 'antd/es/card/Meta'
 import { findProfile } from '../DB/profiles'
+import { useSelector } from 'react-redux'
+import { RootState } from '../main'
 
 const { useBreakpoint } = Grid;
 const { Title } = Typography;
@@ -15,10 +17,21 @@ export function Profile () {
     const { id } = useParams();
     const profile = findProfile(Number(id));
    
+    const profileId = useSelector((state:  RootState)  => state.profileId.value);
+
+    if (profile===false) {
+        return(
+            <Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>
+        )
+    }else if (profileId!=profile.id) {
+        return(
+            <div>Your are not logged in to this account</div>
+        )
+    }
     if (screens.xs) {
         return(
             <>
-            {profile===false ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+            {
             <Col style={{marginLeft:'5px',marginRight:'5px'}}>
                 <Row justify='center'>
                     <img 
@@ -61,13 +74,12 @@ export function Profile () {
                         </Col>
                     ))}
                 </Row>
-            </Col>)}
+            </Col>}
             </>
         )
     }
     return (
         <>
-        {profile===false ? (<Empty/>) : (
             <Col>
                 <Row  gutter={16} wrap={false}>
                     <Col>
@@ -79,7 +91,7 @@ export function Profile () {
                         <Title style={{color:'#ffffff'}}>{profile.name}</Title>
                     </Col>
                 </Row>
-                <Row>
+                <Row justify='center'>
                     <div style={{color:'#ffffff' , fontWeight:'bold' , fontSize:'30px' , marginBottom:'30px' , marginTop:'50px'}}>Your Library</div>
                 </Row>
                 <Row gutter={[24,32]}>
@@ -113,7 +125,6 @@ export function Profile () {
                     ))}
                 </Row>
             </Col>
-        )}
         </>
     )
 }

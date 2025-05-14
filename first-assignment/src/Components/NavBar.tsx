@@ -4,6 +4,8 @@ import { MenuOutlined , FilterOutlined , SearchOutlined } from '@ant-design/icon
 import { allGenres } from '../DB/films'
 import { useState } from 'react'
 import '../index.css'
+import { useSelector } from 'react-redux'
+import { RootState } from '../main'
 
 const { Search } = Input;
 const { useBreakpoint } = Grid;
@@ -15,9 +17,12 @@ export function NavBar() {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const screens = useBreakpoint();
     
+    const loginStatus = useSelector((state:  RootState) => state.logIn.value);
+    const profileId = useSelector((state:  RootState)  => state.profileId.value);
+
     const menu = (
         <div className='custom-checkbox-group'>
             <Checkbox.Group 
@@ -84,8 +89,9 @@ export function NavBar() {
                     <Drawer width='200' style={{backgroundColor:'#333333'}} maskClosable={true}  closable={false} onClose={()=>setOpen(false)} open={open}>
                         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
                             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/home')}}>Home</Menu.Item>
-                            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
+                            {loginStatus&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate(`/profile/${profileId}`)}}>My Profile</Menu.Item>}
                             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
+                            {!loginStatus&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/login')}}>Log In</Menu.Item>}
                             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
                         </Menu>
                     </Drawer>
@@ -126,9 +132,10 @@ export function NavBar() {
                 <MenuOutlined style={{fontSize:'25px' , color:'#333333'}} onClick={()=>setOpen(true)}/>
                 <Drawer width='200' style={{backgroundColor:'#333333'}} maskClosable={true}  closable={false} onClose={()=>setOpen(false)} open={open}>
                     <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
-                        <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/profile')}}>My Profile</Menu.Item>
+                        {loginStatus&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate(`/profile/${profileId}`)}}>My Profile</Menu.Item>}
                         <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
                         <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
+                        {!loginStatus&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/login')}}>Log In</Menu.Item>}
                     </Menu>
                 </Drawer>
             </Col>

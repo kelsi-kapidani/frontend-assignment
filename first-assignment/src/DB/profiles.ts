@@ -13,8 +13,8 @@ export type Profile = {
 };
 
 export const profiles: Profile[] = [
-    {id: 0 , name: 'Kelsi Kapidani' , picture: '/assets/no_image.jpg' , library: [] , login: {username: 'KelsiKapidani' , password: '07042001Kk'}},
-    {id: 1 , name: 'Ndricim Jahaj' , picture: '/assets/no_image.jpg' , library: [] , login: {username: 'NdricimJahaj' , password: '07042001Nj'}}
+    {id: 0 , name: 'Kelsi Kapidani' , picture: '/assets/no_image.jpeg' , library: [] , login: {username: 'KelsiKapidani' , password: '07042001Kk'}},
+    {id: 1 , name: 'Ndricim Jahaj' , picture: '/assets/no_image.jpeg' , library: [] , login: {username: 'NdricimJahaj' , password: '07042001Nj'}}
 ];
 
 export function findProfile(id: number) {
