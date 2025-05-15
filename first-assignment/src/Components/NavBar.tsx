@@ -47,7 +47,7 @@ export function NavBar() {
                 <Input
                     placeholder="search the name of a film" 
                     size="large" 
-                    style={{ width: '350px', color: '#F5B800', borderColor: '#333333', backgroundColor: '#333333', fontSize:'22px' }}
+                    style={{ width: '250px', color: '#F5B800', borderColor: '#333333', backgroundColor: '#333333', fontSize:'22px' }}
                     className="custom-input"
                     onChange={(e)=>{setSearchText(e.target.value)}}
                     onPressEnter={()=>{setOpen2(false);setSelectedGenres([]);navigate(`/search?name=${searchText}&genres=${selectedGenres}`)}}/>

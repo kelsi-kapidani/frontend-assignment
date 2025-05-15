@@ -25,7 +25,9 @@ export function Profile () {
         )
     }else if (profileId!=profile.id) {
         return(
-            <div>Your are not logged in to this account</div>
+            <Row justify='center' style={{color:'#F5B800', fontWeight:'bold'}}>
+                <div>Your are not logged in to this account</div>
+            </Row>
         )
     }
     if (screens.xs) {

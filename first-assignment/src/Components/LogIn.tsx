@@ -33,7 +33,7 @@ export function LogIn() {
         <Row align='middle' justify='center'>
             <Col style={{color:'#F5B800'}}>
                 {failedLogin&&<Row align='middle' justify='center'> Not Valid Log In Credentials</Row>}
-                <Row  justify='center' style={{marginTop:'20px'}}>
+                <Row  justify='center' style={{marginTop:'20px', fontSize:'20px'}}>
                     Username
                 </Row>
                 <Row>
@@ -43,7 +43,7 @@ export function LogIn() {
                         className="custom-input"
                         onChange={(e)=>{setUserName(e.target.value)}}/>
                 </Row>
-                <Row justify='center'>
+                <Row justify='center' style={{fontSize:'20px'}}>
                     Password
                 </Row>
                 <Row>
@@ -56,7 +56,7 @@ export function LogIn() {
                 </Row>
                 <Row align='middle' justify='center'>
                     <div 
-                        style={{ textAlign:'center', borderRadius:'5px', color:'#333333', backgroundColor:'#F5B800', fontSize:'17px', width:'60px', height:'25px', fontWeight:'bold', cursor:'pointer'}}
+                        style={{ marginTop:'10px', textAlign:'center', borderRadius:'5px', color:'#333333', backgroundColor:'#F5B800', fontSize:'18px', width:'70px', height:'30px', fontWeight:'bold', cursor:'pointer'}}
                         onClick={()=>{handleLogIn(userName,passWord)}}>Log In</div>
                 </Row>
             </Col>

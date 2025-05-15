@@ -2,8 +2,12 @@ import { useParams } from 'react-router'
 import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
 import { Film , findFilm , searchFilm } from '../../DB/films'
 import { useNavigate } from 'react-router'
-import { StarOutlined } from '@ant-design/icons'
+import { StarOutlined , BookOutlined, BookFilled } from '@ant-design/icons'
 import Meta from 'antd/es/card/Meta'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../main'
+import { findProfile } from '../../DB/profiles'
+import { useMemo, useState } from 'react'
 
 const { useBreakpoint } = Grid;
 const { Title, Paragraph } = Typography;
@@ -12,6 +16,11 @@ export function FilmPage () {
 
     const navigate = useNavigate();
     const screens = useBreakpoint();
+
+    const loginStatus = useSelector((state:  RootState) => state.logIn.value);
+    const profileId = useSelector((state:  RootState)  => state.profileId.value);
+    const profile = findProfile(profileId);
+    
 
     const { id } = useParams();
     const currentFilm = findFilm(Number(id));
@@ -25,6 +34,12 @@ export function FilmPage () {
             })
         }
     }
+
+    const [bm, setBM] = useState(false);
+    const bookMarked = useMemo(() => {
+        return currentFilm && profile.library.some(film => film.id === currentFilm.id);
+    }, [currentFilm, profile.library, bm]);
+
     if (screens.xs) {
         return(
             <>
@@ -36,9 +51,17 @@ export function FilmPage () {
             <Row>
             <Title style={{color:'#ffffff' , justifyContent:'center'}}>{currentFilm.name}</Title>
             </Row>
-            <Row style={{color:'#ffffff' , marginBottom:'15px' , fontWeight:'bold'}}>
-                {currentFilm.rating+'/5'}
-                <StarOutlined style={{ color: '#F5B800' }}/>
+            <Row justify='space-between' style={{color:'#ffffff' , marginBottom:'25px' , fontWeight:'bold'}}>
+                <Col style={{fontSize:'25px'}}>
+                    {currentFilm.rating+'/5'}
+                    <StarOutlined style={{ color: '#F5B800', fontSize:'25px' }}/>
+                </Col>
+                <Col>
+                    {loginStatus && 
+                        (bookMarked ? 
+                            (<BookFilled onClick={()=>{const index=profile.library.findIndex(film=>film.id===currentFilm.id);profile.library.splice(index,1);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>)   : 
+                            (<BookOutlined onClick={()=>{profile.library.push(currentFilm);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>))}
+                </Col>
             </Row>
             <Flex justify='space-around'>
                  {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
