@@ -2,7 +2,7 @@ import { useParams } from 'react-router'
 import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
 import { Film , findFilm , searchFilm } from '../../DB/films'
 import { useNavigate } from 'react-router'
-import { StarOutlined , BookOutlined, BookFilled } from '@ant-design/icons'
+import { StarFilled , BookOutlined, BookFilled } from '@ant-design/icons'
 import Meta from 'antd/es/card/Meta'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../main'
@@ -17,7 +17,6 @@ export function FilmPage () {
     const navigate = useNavigate();
     const screens = useBreakpoint();
 
-    const loginStatus = useSelector((state:  RootState) => state.logIn.value);
     const profileId = useSelector((state:  RootState)  => state.profileId.value);
     const profile = findProfile(profileId);
     
@@ -34,11 +33,11 @@ export function FilmPage () {
             })
         }
     }
-
     const [bm, setBM] = useState(false);
+   
     const bookMarked = useMemo(() => {
-        return currentFilm && profile.library.some(film => film.id === currentFilm.id);
-    }, [currentFilm, profile.library, bm]);
+        return profile && currentFilm && profile.library.some(film => film.id === currentFilm.id);
+    }, [currentFilm, bm]);
 
     if (screens.xs) {
         return(
@@ -54,10 +53,10 @@ export function FilmPage () {
             <Row justify='space-between' style={{color:'#ffffff' , marginBottom:'25px' , fontWeight:'bold'}}>
                 <Col style={{fontSize:'25px'}}>
                     {currentFilm.rating+'/5'}
-                    <StarOutlined style={{ color: '#F5B800', fontSize:'25px' }}/>
+                    <StarFilled style={{ color: '#F5B800', fontSize:'25px' }}/>
                 </Col>
                 <Col>
-                    {loginStatus && 
+                    {profile &&
                         (bookMarked ? 
                             (<BookFilled onClick={()=>{const index=profile.library.findIndex(film=>film.id===currentFilm.id);profile.library.splice(index,1);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>)   : 
                             (<BookOutlined onClick={()=>{profile.library.push(currentFilm);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>))}
@@ -117,10 +116,20 @@ export function FilmPage () {
             </Col>
             <Col>
             <Title style={{color:'#ffffff'}}>{currentFilm.name}</Title>
-            <div style={{color:'#ffffff' , marginBottom:'15px' , fontWeight:'bold'}}>
-                {currentFilm.rating+'/5'}
-            <StarOutlined style={{ color: '#F5B800' }}/>
-            </div>
+            <Row justify='space-between'>
+                <Col>
+                    <div style={{color:'#ffffff' , marginBottom:'40px' , fontWeight:'bold'}}>
+                        {currentFilm.rating+'/5'}
+                        <StarFilled style={{ color: '#F5B800' }}/>
+                    </div>
+                </Col>
+                <Col style={{marginRight:'10px'}}>
+                    {profile &&
+                        (bookMarked ? 
+                            (<BookFilled onClick={()=>{const index=profile.library.findIndex(film=>film.id===currentFilm.id);profile.library.splice(index,1);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>)   : 
+                            (<BookOutlined onClick={()=>{profile.library.push(currentFilm);setBM(!bm);}} style={{ color: '#F5B800', fontSize:'25px' }}/>))}
+                </Col>
+            </Row>
             <Flex justify='space-around'>
                 {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
             </Flex>
