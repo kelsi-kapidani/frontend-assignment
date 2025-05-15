@@ -4,7 +4,7 @@ import { findUN } from "../DB/profiles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { set } from "../Slices/profileIdSlice";
-import { login } from "../Slices/loginSlice";
+// import { login } from "../Slices/loginSlice";
 
 export function LogIn() {
 
@@ -24,7 +24,7 @@ export function LogIn() {
         }
         if (profile.login.password===password) {
             dispatch(set(profile.id));
-            dispatch(login());
+            // dispatch(login());
             navigate(`/profile/${profile.id}`);
         }
     };
