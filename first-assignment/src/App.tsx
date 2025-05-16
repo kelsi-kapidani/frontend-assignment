@@ -11,7 +11,7 @@ function App() {
       minHeight: '100vh',
       backgroundColor: '#333333'}}>
       <NavBar></NavBar>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, width: '100%'}}>
       <Outlet />
       </div>
       <Card
