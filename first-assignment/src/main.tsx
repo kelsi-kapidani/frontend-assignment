@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
-import { Display } from './Components/non-API Variant/Display'
-import { FilmPage } from './Components/non-API Variant/FilmPage'
+// import { Display } from './Components/non-API Variant/Display'
+// import { FilmPage } from './Components/non-API Variant/FilmPage'
 import { Home } from './Components/Home'
 import { Profile } from './Components/Profile'
 import { LogIn } from './Components/LogIn'
@@ -13,12 +13,17 @@ import logInReducer from './Slices/loginSlice'
 import profileIdReducer from './Slices/profileIdSlice'
 import { SearchResult } from './Components/API Variant/SerachResult'
 import { MoviePage } from './Components/API Variant/MoviePage'
+import { imdbAPI} from './Slices/imdbAPI'
+import { RTKSearchResult } from './Components/RTK Redux Variant/RTKSearchResult'
+import { RTKMoviePage } from './Components/RTK Redux Variant/RTKMoviePage'
 
 const store = configureStore ({
   reducer: {
     logIn: logInReducer,
-    profileId: profileIdReducer
-  }
+    profileId: profileIdReducer,
+    [imdbAPI.reducerPath]: imdbAPI.reducer
+  } ,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(imdbAPI.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -38,11 +43,11 @@ const router = createBrowserRouter([
       },
     {
     path:'/search',
-    element: <SearchResult />
+    element: <RTKSearchResult />
     },
     {
     path:'/films/:id',
-    element: <MoviePage />
+    element: <RTKMoviePage />
     },
     {
     path:'/home',

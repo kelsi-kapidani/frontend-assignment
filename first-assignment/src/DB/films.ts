@@ -56,7 +56,7 @@ export function searchFilm (name: string | null , genres: string []) {
 }
 
 /// find precise film by id
-export function findFilm (input: number | undefined) {
+export function findFilm (input: string | undefined) {
 
     if (input===undefined) {
         return null;

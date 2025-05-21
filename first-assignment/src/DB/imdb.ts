@@ -20,7 +20,7 @@ export async function getMovie(id: string | undefined) {
             poster: jresponse.primaryImage || '',
             description: jresponse.description || 'No description available.',
             genres: Array.isArray(jresponse.genres) ? jresponse.genres : [],
-            rating: typeof jresponse.averageRating === 'number' ? jresponse.averageRating : 0,
+            rating: typeof jresponse.averageRating === 'number' ? jresponse.averageRating/2 : 0,
           };
 	    return movie;
     }catch (error) {
@@ -53,7 +53,7 @@ try {
             poster: item.primaryImage || '',
             description: item.description || 'No description available.',
             genres: Array.isArray(item.genres) ? item.genres : [],
-            rating: typeof item.averageRating === 'number' ? item.averageRating : 0,
+            rating: typeof item.averageRating === 'number' ? item.averageRating/2 : 0,
           };
         translatedResults.push(film);
     }

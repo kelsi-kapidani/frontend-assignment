@@ -1,32 +1,36 @@
-import { searchFilm , Film } from "../../DB/films"
 import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
-import { Card , Col , Row , Table , Grid } from "antd"
+import { Card , Col , Row , Table , Grid, Empty } from "antd"
+import { useSearchMoviesQuery } from '../../Slices/imdbAPI'
 
 const { Meta } = Card;
 const { useBreakpoint } = Grid;
 
-export function Display () {
+export function RTKSearchResult () {
     
     const navigate = useNavigate()
     const screens = useBreakpoint();
 
     const url = useLocation();
     const queryParams = new URLSearchParams(url.search);
-    const searchValue = queryParams.get('name'); 
+    const searchValue = queryParams.get('name') || ""; 
     const searchGenresString = queryParams.get('genres');
-    const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
-    const listOfFilms = searchFilm(searchValue, searchGenresArray);
+    const searchGenresArray = searchGenresString ? searchGenresString.split(',').map(genre => genre.charAt(0).toUpperCase()) : [];
+    // const genresParam = searchGenresArray.length > 0 ? `&genres=${encodeURIComponent(JSON.stringify(searchGenresArray))}` : '';
+
+    const { data, error, isLoading } = useSearchMoviesQuery({name: searchValue, genres: searchGenresArray});
+
+    const listOfFilms = data?.results || [];
     
     const columns = [
         {
             title: 'Poster',
             dataIndex: 'poster',
             key: 'poster',
-            render: (_: string, film: Film) => (
+            render: (_: string, film: any) => (
               <img 
-                src={film.poster} 
-                alt={film.name} 
+                src={film.primaryImage} 
+                alt={film.primaryTitle} 
                 style={{ width: 80, height: 'auto'}} 
               />
             ),
@@ -35,11 +39,11 @@ export function Display () {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (_: string, film: Film) => (
+            render: (_: string, film: any) => (
               <div 
                 style={{ textAlign: 'center'}} 
               >
-                {film.name}
+                {film.primaryTitle}
               </div>
             ),
           },
@@ -49,7 +53,9 @@ export function Display () {
           key: 'genres',
           render: (genres: string[]) => (
             <div style={{ textAlign: 'center' }}>
-              {genres.join(', ')}
+              {Array.isArray(genres) && genres.length > 0
+                  ? genres.join(', ')
+                  : 'No genres available'}
             </div>
           ),
         },
@@ -65,17 +71,20 @@ export function Display () {
           },
         {
           title: 'Rating',
-          dataIndex: 'rating',
-          key: 'rating',
-          render: (rating: number) => (
+          dataIndex: 'averageRating',
+          key: 'averageRating',
+          render: (averageRating: number) => (
             <div style={{ textAlign: 'center' }}>
-              {rating}
+              {averageRating}
             </div>
           ),
         },
       ];
+
     if (screens.xs) {
         return(
+        <>
+        { error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
         <Row gutter={[24,32]}>
         {listOfFilms.map(film=>(
              <Col xs={12} key={film.id}>
@@ -90,8 +99,8 @@ export function Display () {
                    border:'none'
                  }}
                  cover={<img
-                    src={film.poster}
-                    alt={film.name}
+                    src={film.primaryImage}
+                    alt={film.primaryTitle}
                     style={{
                       width: '100%',
                       height: '300px',
@@ -100,7 +109,7 @@ export function Display () {
                     }}/>
                  }>
                 <Meta
-                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.name}</div>}
+                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.primaryTitle}</div>}
                     description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '60px' , color: '#dcdcdc'}}>{film.genres.join(', ')}</div>}
                 />
                </Card>
@@ -108,18 +117,24 @@ export function Display () {
            </Col>
         ))}
         </Row>
+        )}
+        </>
         )
     }
         return (
+            <>
+        { error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
         <Table
-          columns={columns}
-          dataSource={listOfFilms}
-          rowKey="id"
-          pagination={{ pageSize: 7 }}
-          className="custom-table"
-          onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
-          style={{cursor:'pointer'}}
+            columns={columns}
+            dataSource={listOfFilms}
+            rowKey="id"
+            pagination={{ pageSize: 7 }}
+            className="custom-table"
+            onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
+            style={{cursor:'pointer'}}
       />
+       )}
+       </>
     )
     
 }

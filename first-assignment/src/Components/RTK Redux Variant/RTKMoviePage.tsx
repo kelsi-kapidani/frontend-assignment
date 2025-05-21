@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
-import { Film , findFilm , searchFilm } from '../../DB/films'
+import { Film , searchFilm } from '../../DB/films'
 import { useNavigate } from 'react-router'
 import { StarFilled , BookOutlined, BookFilled } from '@ant-design/icons'
 import Meta from 'antd/es/card/Meta'
@@ -8,11 +8,12 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../main'
 import { findProfile } from '../../DB/profiles'
 import { useMemo, useState } from 'react'
+import { useGetMovieQuery } from '../../Slices/imdbAPI'
 
 const { useBreakpoint } = Grid;
 const { Title, Paragraph } = Typography;
 
-export function FilmPage () {
+export function RTKMoviePage () {
 
     const navigate = useNavigate();
     const screens = useBreakpoint();
@@ -20,10 +21,13 @@ export function FilmPage () {
     const profileId = useSelector((state:  RootState)  => state.profileId.value);
     const profile = findProfile(profileId);
     
-
     const { id } = useParams();
-    const currentFilm = findFilm(id);
+
+    const { data, error, isLoading } = useGetMovieQuery(id);
+
+    const currentFilm = data;
     const similiarFilms: Film[] = [];
+
     if (currentFilm!=null) {
         for (const genre of currentFilm.genres) {
             searchFilm('',[genre]).forEach(item => {
@@ -42,17 +46,17 @@ export function FilmPage () {
     if (screens.xs) {
         return(
             <>
-            {currentFilm===null ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+            {currentFilm===null || error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
             <Col style={{marginLeft:'5px',marginRight:'5px'}}>
             <Row justify='center'>
-                <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
+                <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage}/>
             </Row>
             <Row>
-            <Title style={{color:'#ffffff' , justifyContent:'center'}}>{currentFilm.name}</Title>
+            <Title style={{color:'#ffffff' , justifyContent:'center'}}>{currentFilm.primaryTitle}</Title>
             </Row>
             <Row justify='space-between' style={{color:'#ffffff' , marginBottom:'25px' , fontWeight:'bold'}}>
                 <Col style={{fontSize:'25px'}}>
-                    {currentFilm.rating+'/5'}
+                    {currentFilm.averageRating/2+'/5'}
                     <StarFilled style={{ color: '#F5B800', fontSize:'25px' }}/>
                 </Col>
                 <Col>
@@ -108,18 +112,18 @@ export function FilmPage () {
     }
     return (
         <>
-        {currentFilm===null ? (<Empty/>) : (
+        {currentFilm===null || error || isLoading ? (<Empty/>) : (
             <Col>
         <Row  gutter={16} wrap={false}>
             <Col>
-            <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
+            <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage}/>
             </Col>
             <Col>
-            <Title style={{color:'#ffffff'}}>{currentFilm.name}</Title>
+            <Title style={{color:'#ffffff'}}>{currentFilm.primaryTitle}</Title>
             <Row justify='space-between'>
                 <Col>
                     <div style={{color:'#ffffff' , marginBottom:'40px' , fontWeight:'bold'}}>
-                        {currentFilm.rating+'/5'}
+                        {currentFilm.averageRating/2+'/5'}
                         <StarFilled style={{ color: '#F5B800' }}/>
                     </div>
                 </Col>
