@@ -11,8 +11,8 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit/react'
 import logInReducer from './Slices/loginSlice'
 import profileIdReducer from './Slices/profileIdSlice'
-// import { SearchResult } from './Components/API Variant/SerachResult'
-// import { MoviePage } from './Components/API Variant/MoviePage'
+import { SearchResult } from './Components/API Variant/SerachResult'
+import { MoviePage } from './Components/API Variant/MoviePage'
 
 const store = configureStore ({
   reducer: {
@@ -38,11 +38,11 @@ const router = createBrowserRouter([
       },
     {
     path:'/search',
-    element: <Display />
+    element: <SearchResult />
     },
     {
     path:'/films/:id',
-    element: <FilmPage />
+    element: <MoviePage />
     },
     {
     path:'/home',

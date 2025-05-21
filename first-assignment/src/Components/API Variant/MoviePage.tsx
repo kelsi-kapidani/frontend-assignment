@@ -43,7 +43,7 @@ export function MoviePage () {
     if (screens.xs) {
         return(
             <>
-            {currentFilm===null ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+            {currentFilm===null || currentFilm===undefined ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
             <Col style={{marginLeft:'5px',marginRight:'5px'}}>
             <Row justify='center'>
                 <img style={{width: '300px', height: 'auto'}} src={currentFilm.poster}/>
@@ -101,7 +101,7 @@ export function MoviePage () {
     }
     return (
         <>
-        {currentFilm===null ? (<Empty/>) : (
+        {currentFilm===null || currentFilm===undefined ? (<Empty/>) : (
             <Col>
         <Row  gutter={16} wrap={false}>
             <Col>

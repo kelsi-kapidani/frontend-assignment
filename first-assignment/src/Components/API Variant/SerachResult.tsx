@@ -28,7 +28,7 @@ export function SearchResult () {
                 setListOfFilms(movies); 
             }
         }
-    }, [mname, mgenresarray]);
+    }, [mname]);
 
     useEffect(() => {
         fetchMovies(); 
