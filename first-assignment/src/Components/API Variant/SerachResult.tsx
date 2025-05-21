@@ -19,7 +19,7 @@ export function SearchResult () {
     const queryParams = new URLSearchParams(url.search);
     const mname = queryParams.get('name');
     const mgenres = queryParams.get('genres');
-    const mgenresarray = mgenres ? mgenres.split(',').map(genre => genre.charAt(0).toUpperCase()) : [];
+    const mgenresarray = mgenres ? mgenres.split(',') : [];
 
     const fetchMovies = useCallback(async () => {
         if (mname) {

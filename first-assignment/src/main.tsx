@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router'
 import App from './App'
-// import { Display } from './Components/non-API Variant/Display'
-// import { FilmPage } from './Components/non-API Variant/FilmPage'
+import { Display } from './Components/non-API Variant/Display'
+import { FilmPage } from './Components/non-API Variant/FilmPage'
 import { Home } from './Components/Home'
 import { Profile } from './Components/Profile'
 import { LogIn } from './Components/LogIn'
@@ -43,11 +43,11 @@ const router = createBrowserRouter([
       },
     {
     path:'/search',
-    element: <RTKSearchResult />
+    element: <SearchResult />
     },
     {
     path:'/films/:id',
-    element: <RTKMoviePage />
+    element: <MoviePage />
     },
     {
     path:'/home',

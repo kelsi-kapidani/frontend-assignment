@@ -15,10 +15,11 @@ export function RTKSearchResult () {
     const queryParams = new URLSearchParams(url.search);
     const searchValue = queryParams.get('name') || ""; 
     const searchGenresString = queryParams.get('genres');
-    const searchGenresArray = searchGenresString ? searchGenresString.split(',').map(genre => genre.charAt(0).toUpperCase()) : [];
-    // const genresParam = searchGenresArray.length > 0 ? `&genres=${encodeURIComponent(JSON.stringify(searchGenresArray))}` : '';
+    const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
+    //problem with format of parameter genres of api, so instead just using the singular genre param
+    const firstGenre = searchGenresArray[0] ? searchGenresArray[0].charAt(0).toUpperCase() + searchGenresArray[0].slice(1) : '';
 
-    const { data, error, isLoading } = useSearchMoviesQuery({name: searchValue, genres: searchGenresArray});
+    const { data, error, isLoading } = useSearchMoviesQuery({name: searchValue, genre: firstGenre});
 
     const listOfFilms = data?.results || [];
     

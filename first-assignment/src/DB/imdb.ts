@@ -31,8 +31,8 @@ export async function getMovie(id: string | undefined) {
 export async function searchMovie(name: string | null, genres: string[]) {
 
     const translatedResults: Film[]=[];
-    const genresParam = genres.length > 0 ? `&genres=${encodeURIComponent(JSON.stringify(genres))}` : '';
-    const url = `https://imdb236.p.rapidapi.com/api/imdb/search?originalTitle=${name}${genresParam}&sortOrder=DESC&sortField=id`;
+    const firstGenre = genres[0] ? "&genre="+genres[0].charAt(0).toUpperCase() + genres[0].slice(1) : '';
+    const url = `https://imdb236.p.rapidapi.com/api/imdb/search?originalTitle=${name}${firstGenre}&sortOrder=DESC&sortField=id`;
     const options = {
 	method: 'GET',
 	headers: {

@@ -12,7 +12,13 @@ export const imdbAPI = createApi({
     }),
     endpoints: (builder) => ({
         searchMovies: builder.query({ 
-            query: ({name,genres}) => `search?originalTitle=${name}${genres}&sortOrder=DESC&sortField=id`,
+
+            query: ({name,genre}) => {
+                if (genre==='') {
+                    return `search?originalTitle=${name}&sortOrder=DESC&sortField=id`;
+                }
+                return `search?originalTitle=${name}&genre=${genre}&sortOrder=DESC&sortField=id`;
+        },
         }),
 
         getMovie: builder.query({
