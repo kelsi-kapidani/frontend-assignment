@@ -15,12 +15,6 @@ export function RTKSearchResult () {
 
     const searchTitle = useSelector((state:  RootState)  => state.search.name);
     const searchGenres = useSelector((state:  RootState)  => state.search.genres);
-    
-    // const url = useLocation();
-    // const queryParams = new URLSearchParams(url.search);
-    // const searchValue = queryParams.get('name') || ""; 
-    // const searchGenresString = queryParams.get('genres');
-    // const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
 
     const firstGenre = searchGenres[0] ? searchGenres[0].charAt(0).toUpperCase() + searchGenres[0].slice(1) : '';
 

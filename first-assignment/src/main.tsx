@@ -45,11 +45,11 @@ const router = createBrowserRouter([
       },
     {
     path:'/search',
-    element: <SearchResult />
+    element: <RTKSearchResult />
     },
     {
     path:'/films/:id',
-    element: <MoviePage />
+    element: <RTKMoviePage />
     },
     {
     path:'/home',

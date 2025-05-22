@@ -119,6 +119,7 @@ export function NavBar() {
                         placeholder="search the name of a film" 
                         size="large" 
                         value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
                         onSearch={(value)=>{dispatch(setSearch({name: searchText, genres: selectedGenres}));setSelectedGenres([]);setSearchText('');navigate(`/search?name=${value}&genres=${selectedGenres}`)}}
                         style={{ width: '250px' ,
                             color: '#FFF099',    
