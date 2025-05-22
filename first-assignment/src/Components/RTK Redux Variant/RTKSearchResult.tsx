@@ -2,6 +2,8 @@ import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import { Card , Col , Row , Table , Grid, Empty } from "antd"
 import { useSearchMoviesQuery } from '../../Slices/imdbAPI'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../main'
 
 const { Meta } = Card;
 const { useBreakpoint } = Grid;
@@ -11,16 +13,20 @@ export function RTKSearchResult () {
     const navigate = useNavigate()
     const screens = useBreakpoint();
 
-    const url = useLocation();
-    const queryParams = new URLSearchParams(url.search);
-    const searchValue = queryParams.get('name') || ""; 
-    const searchGenresString = queryParams.get('genres');
-    const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
-    //problem with format of parameter genres of api, so instead just using the singular genre param
-    const firstGenre = searchGenresArray[0] ? searchGenresArray[0].charAt(0).toUpperCase() + searchGenresArray[0].slice(1) : '';
+    const searchTitle = useSelector((state:  RootState)  => state.search.name);
+    const searchGenres = useSelector((state:  RootState)  => state.search.genres);
+    
+    // const url = useLocation();
+    // const queryParams = new URLSearchParams(url.search);
+    // const searchValue = queryParams.get('name') || ""; 
+    // const searchGenresString = queryParams.get('genres');
+    // const searchGenresArray = searchGenresString ? searchGenresString.split(',') : [];
 
-    const { data, error, isLoading } = useSearchMoviesQuery({name: searchValue, genre: firstGenre});
+    const firstGenre = searchGenres[0] ? searchGenres[0].charAt(0).toUpperCase() + searchGenres[0].slice(1) : '';
 
+    const { data, error, isLoading } = useSearchMoviesQuery({name: searchTitle, genre: firstGenre});
+
+    
     const listOfFilms = data?.results || [];
     
     const columns = [

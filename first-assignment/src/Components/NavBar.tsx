@@ -6,6 +6,8 @@ import { useState } from 'react'
 import '../index.css'
 import { useSelector } from 'react-redux'
 import { RootState } from '../main'
+import { useDispatch } from "react-redux";
+import { setSearch } from "../Slices/searchSlice";
 
 const { Search } = Input;
 const { useBreakpoint } = Grid;
@@ -18,18 +20,20 @@ export function NavBar() {
     const [open2, setOpen2] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const screens = useBreakpoint();
     
     // const loginStatus = useSelector((state:  RootState) => state.logIn.value);
     const profileId = useSelector((state:  RootState)  => state.profileId.value);
     
+
     const menu = (
         <div className='custom-checkbox-group'>
             <Checkbox.Group 
                 style={{justifyContent: 'start', color:'#ffffff'}} 
                 options={allGenres} 
                 value={selectedGenres} 
-                onChange={(checkedValues) => {setSelectedGenres(checkedValues);  console.log('Checked values:', checkedValues);}}/> 
+                onChange={(checkedValues) => {setSelectedGenres(checkedValues);}}/> 
         </div>
     )
     const menuxs = (
@@ -38,7 +42,7 @@ export function NavBar() {
                 style={{justifyContent: 'space-around', color:'#ffffff', paddingTop:'10px',  paddingBottom:'10px'}} 
                 options={allGenres} 
                 value={selectedGenres} 
-                onChange={(checkedValues) => {setSelectedGenres(checkedValues);  console.log('Checked values:', checkedValues);}}/> 
+                onChange={(checkedValues) => {setSelectedGenres(checkedValues);}}/> 
         </div>
     )
     const search = (
@@ -49,8 +53,9 @@ export function NavBar() {
                     size="large" 
                     style={{ width: '250px', color: '#F5B800', borderColor: '#333333', backgroundColor: '#333333', fontSize:'22px' }}
                     className="custom-input"
+                    value={searchText}
                     onChange={(e)=>{setSearchText(e.target.value)}}
-                    onPressEnter={()=>{setOpen2(false);setSelectedGenres([]);navigate(`/search?name=${searchText}&genres=${selectedGenres}`)}}/>
+                    onPressEnter={()=>{setOpen2(false);dispatch(setSearch({name: searchText, genres: selectedGenres}));setSelectedGenres([]);setSearchText('');navigate(`/search?name=${searchText}&genres=${selectedGenres}`)}}/>
             </Col>
             <Col>
                 <Dropdown 
@@ -90,7 +95,7 @@ export function NavBar() {
                         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
                             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/home')}}>Home</Menu.Item>
                             {(profileId>-1)&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate(`/profile/${profileId}`)}}>My Profile</Menu.Item>}
-                            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
+                            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{dispatch(setSearch({name: '', genres: selectedGenres}));setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
                             {(profileId===-1)&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/login')}}>Log In</Menu.Item>}
                             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
                         </Menu>
@@ -113,12 +118,13 @@ export function NavBar() {
                     <Search 
                         placeholder="search the name of a film" 
                         size="large" 
-                        onSearch={(value)=>{setSelectedGenres([]);navigate(`/search?name=${value}&genres=${selectedGenres}`)}}
+                        value={searchText}
+                        onSearch={(value)=>{dispatch(setSearch({name: searchText, genres: selectedGenres}));setSelectedGenres([]);setSearchText('');navigate(`/search?name=${value}&genres=${selectedGenres}`)}}
                         style={{ width: '250px' ,
-                        color: '#FFF099',    
-                        borderColor: '#333333'}}
-                        className="custom-search"
-                        enterButton/>
+                            color: '#FFF099',    
+                            borderColor: '#333333'}}
+                            className="custom-search"
+                            enterButton/>
                     <Dropdown 
                         overlay={menu} 
                         placement='bottomRight'
