@@ -95,7 +95,7 @@ export function NavBar() {
                         <Menu className="custom-menu" style={{backgroundColor:'#333333'}}>
                             <Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/home')}}>Home</Menu.Item>
                             {(profileId>-1)&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate(`/profile/${profileId}`)}}>My Profile</Menu.Item>}
-                            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{dispatch(setSearch({name: '', genres: selectedGenres}));setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
+                            <Menu.Item style={{color:'#FFFFFF'}} onClick={()=>{dispatch(setSearch({name: '', genres: []}));setSelectedGenres([]);setOpen(false);navigate(`/search?name=&genres=`)}}>Library</Menu.Item>
                             {(profileId===-1)&&<Menu.Item style={{color:'#FFFFFF'}} onClick={()=> {setSelectedGenres([]);setOpen(false);navigate('/login')}}>Log In</Menu.Item>}
                             <Menu.Item style={{color:'#FFFFFF'}}>Contact</Menu.Item>
                         </Menu>

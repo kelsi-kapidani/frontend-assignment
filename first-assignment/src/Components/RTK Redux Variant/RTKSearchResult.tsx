@@ -1,4 +1,3 @@
-import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
 import { Card , Col , Row , Table , Grid, Empty } from "antd"
 import { useSearchMoviesQuery } from '../../Slices/imdbAPI'

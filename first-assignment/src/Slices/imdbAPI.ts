@@ -14,8 +14,12 @@ export const imdbAPI = createApi({
         searchMovies: builder.query({ 
 
             query: ({name,genre}) => {
-                if (genre==='') {
-                    return `search?originalTitle=${name}&sortOrder=DESC&sortField=id`;
+                if (genre==='' && name==='') {
+                    return `search?sortOrder=DESC&sortField=id`;
+                }else if (name==='') {
+                    return `search?genre=${genre}&sortOrder=DESC&sortField=id`;
+                }else if (genre==='') {
+                     return `search?originalTitle=${name}&sortOrder=DESC&sortField=id`;
                 }
                 return `search?originalTitle=${name}&genre=${genre}&sortOrder=DESC&sortField=id`;
         },
