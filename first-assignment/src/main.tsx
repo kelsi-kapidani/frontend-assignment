@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit/react'
 import logInReducer from './Slices/loginSlice'
 import profileIdReducer from './Slices/profileIdSlice'
+import searchReducer from './Slices/searchSlice'
 import { SearchResult } from './Components/API Variant/SerachResult'
 import { MoviePage } from './Components/API Variant/MoviePage'
 import { imdbAPI} from './Slices/imdbAPI'
@@ -21,6 +22,7 @@ const store = configureStore ({
   reducer: {
     logIn: logInReducer,
     profileId: profileIdReducer,
+    search: searchReducer,
     [imdbAPI.reducerPath]: imdbAPI.reducer
   } ,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(imdbAPI.middleware)
