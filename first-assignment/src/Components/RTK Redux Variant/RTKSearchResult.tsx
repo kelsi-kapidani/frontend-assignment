@@ -31,7 +31,7 @@ export function RTKSearchResult () {
             key: 'poster',
             render: (_: string, film: Film) => (
               <img 
-                src={film.primaryImage} 
+                src={film.primaryImage ?? 'no_image.jpeg'} 
                 alt={film.primaryTitle} 
                 style={{ width: 80, height: 'auto'}} 
               />
@@ -67,7 +67,7 @@ export function RTKSearchResult () {
             key: 'description',
             render: (description: string) => (
               <div style={{ textAlign: 'center' }}>
-                {description}
+                {description ?? 'No description available'}
               </div>
             ),
           },
@@ -77,7 +77,7 @@ export function RTKSearchResult () {
           key: 'averageRating',
           render: (averageRating: number) => (
             <div style={{ textAlign: 'center' }}>
-              {averageRating}
+              {averageRating ? (averageRating/2) : ('No rating available')}
             </div>
           ),
         },
@@ -101,7 +101,7 @@ export function RTKSearchResult () {
                    border:'none'
                  }}
                  cover={<img
-                    src={film.primaryImage}
+                    src={film.primaryImage ?? 'no_image.jpeg'}
                     alt={film.primaryTitle}
                     style={{
                       width: '100%',

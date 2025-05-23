@@ -1,14 +1,14 @@
 import { useParams } from 'react-router'
-import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
-import { searchFilm } from '../../DB/films'
+import { Flex , Col , Row , Typography , Empty , Tag , Grid } from "antd"
 import { useNavigate } from 'react-router'
 import { StarFilled , BookOutlined, BookFilled, LoadingOutlined } from '@ant-design/icons'
-import Meta from 'antd/es/card/Meta'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../main'
 import { findProfile } from '../../DB/profiles'
 import { useMemo, useState } from 'react'
 import { useGetMovieQuery } from '../../Slices/imdbAPI'
+import { RTKMovieSuggestions } from './RTKMovieSuggestion'
+
 
 const { useBreakpoint } = Grid;
 const { Title, Paragraph } = Typography;
@@ -28,17 +28,7 @@ export function RTKMoviePage () {
     type Film = typeof data;
     
     const currentFilm: Film= data;
-    const similiarFilms: Film[] = [];
-
-    if (currentFilm!=null) {
-        for (const genre of currentFilm.genres) {
-            searchFilm('',[genre]).forEach(item => {
-                if (!similiarFilms.some(f => f.id === item.id)) {
-                    similiarFilms.push(item);
-                }
-            })
-        }
-    }
+    
     const [bm, setBM] = useState(false);
    
     const bookMarked = useMemo(() => {
@@ -51,15 +41,14 @@ export function RTKMoviePage () {
             {currentFilm===null || error ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>): ( isLoading ? (<LoadingOutlined/>) :(
             <Col style={{marginLeft:'5px',marginRight:'5px'}}>
             <Row justify='center'>
-                <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage}/>
+                <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage ?? '/assets/no_image.jpeg'}/>
             </Row>
             <Row>
             <Title style={{color:'#ffffff' , justifyContent:'center'}}>{currentFilm.primaryTitle}</Title>
             </Row>
             <Row justify='space-between' style={{color:'#ffffff' , marginBottom:'25px' , fontWeight:'bold'}}>
                 <Col style={{fontSize:'25px'}}>
-                    {currentFilm.averageRating/2+'/5'}
-                    <StarFilled style={{ color: '#F5B800', fontSize:'25px' }}/>
+                    {currentFilm.averageRating ? (<div> {currentFilm.averageRating/2+'/5'}<StarFilled style={{ color: '#F5B800' }}/> </div>): ('No Rating Available')}
                 </Col>
                 <Col>
                     {profile &&
@@ -80,39 +69,7 @@ export function RTKMoviePage () {
             <Row>
             <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Row>
-            <Row><div style={{color:'#ffffff' , fontWeight:'bold' , fontSize:'30px' , marginBottom:'30px' , marginTop:'50px'}}>More like this</div></Row>
-        <Row gutter={[24,32]}>
-        {similiarFilms.map(film=>(
-             <Col xs={12} key={film.id}>
-             <div onClick={() => navigate(`/films/${film.id}`)}>
-               <Card
-                 hoverable
-                 style={{
-                   width: '100%',
-                   borderRadius: '10px',
-                   height: '325px',
-                   backgroundColor: '#333333',
-                   border:'none'
-                 }}
-                 cover={<img
-                    src={film.poster}
-                    alt={film.name}
-                    style={{
-                      width: '100%',
-                      height: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                    }}/>
-                 }>
-                <Meta
-                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.name}</div>}
-                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '60px' , color: '#dcdcdc'}}>{film.genres.join(', ')}</div>}
-                />
-               </Card>
-             </div>
-           </Col>
-        ))}
-        </Row>
+            <RTKMovieSuggestions genres={currentFilm.genres}/>
             </Col>
             ))}
             </>
@@ -124,15 +81,14 @@ export function RTKMoviePage () {
             <Col>
         <Row  gutter={16} wrap={false}>
             <Col>
-            <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage}/>
+            <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage ?? '/assets/no_image.jpeg'}/>
             </Col>
             <Col>
             <Title style={{color:'#ffffff'}}>{currentFilm.primaryTitle}</Title>
             <Row justify='space-between'>
                 <Col>
                     <div style={{color:'#ffffff' , marginBottom:'40px' , fontWeight:'bold'}}>
-                        {currentFilm.averageRating/2+'/5'}
-                        <StarFilled style={{ color: '#F5B800' }}/>
+                        {currentFilm.averageRating ? (<div> {currentFilm.averageRating/2+'/5'}<StarFilled style={{ color: '#F5B800' }}/> </div>): ('No Rating Available')}
                     </div>
                 </Col>
                 <Col style={{marginRight:'10px'}}>
@@ -154,39 +110,7 @@ export function RTKMoviePage () {
             <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Col>
         </Row>
-        <Row><div style={{color:'#ffffff' , fontWeight:'bold' , fontSize:'30px' , marginBottom:'30px' , marginTop:'50px'}}>More like this</div></Row>
-        <Row gutter={[24,32]}>
-        {similiarFilms.map(film=>(
-             <Col xs={6} key={film.id}>
-             <div onClick={() => navigate(`/films/${film.id}`)}>
-               <Card
-                 hoverable
-                 style={{
-                   width: '100%',
-                   borderRadius: '10px',
-                   height: '325px',
-                   backgroundColor: '#333333',
-                   border:'none'
-                 }}
-                 cover={<img
-                    src={film.poster}
-                    alt={film.name}
-                    style={{
-                      width: '100%',
-                      height: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                    }}/>
-                 }>
-                <Meta
-                    title={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '50px' , color: '#ffffff'}}>{film.name}</div>}
-                    description={<div style={{ whiteSpace: 'normal', wordWrap: 'break-word', textAlign: 'center' , height: '60px' , color: '#dcdcdc'}}>{film.genres.join(', ')}</div>}
-                />
-               </Card>
-             </div>
-           </Col>
-        ))}
-        </Row>
+        <RTKMovieSuggestions genres={currentFilm.genres}/>
         </Col>
         ))}
         </>
