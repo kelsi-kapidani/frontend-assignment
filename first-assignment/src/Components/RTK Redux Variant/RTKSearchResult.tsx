@@ -31,7 +31,7 @@ export function RTKSearchResult () {
             key: 'poster',
             render: (_: string, film: Film) => (
               <img 
-                src={film.primaryImage ?? 'no_image.jpeg'} 
+                src={film.primaryImage ?? '/assets/no_image.jpeg'} 
                 alt={film.primaryTitle} 
                 style={{ width: 80, height: 'auto'}} 
               />
