@@ -1,8 +1,8 @@
 import { useParams } from 'react-router'
 import { Flex , Col , Row , Typography , Empty , Tag , Grid , Card } from "antd"
-import { Film , searchFilm } from '../../DB/films'
+import { searchFilm } from '../../DB/films'
 import { useNavigate } from 'react-router'
-import { StarFilled , BookOutlined, BookFilled } from '@ant-design/icons'
+import { StarFilled , BookOutlined, BookFilled, LoadingOutlined } from '@ant-design/icons'
 import Meta from 'antd/es/card/Meta'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../main'
@@ -25,7 +25,9 @@ export function RTKMoviePage () {
 
     const { data, error, isLoading } = useGetMovieQuery(id);
 
-    const currentFilm = data;
+    type Film = typeof data;
+    
+    const currentFilm: Film= data;
     const similiarFilms: Film[] = [];
 
     if (currentFilm!=null) {
@@ -46,7 +48,7 @@ export function RTKMoviePage () {
     if (screens.xs) {
         return(
             <>
-            {currentFilm===null || error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+            {currentFilm===null || error ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>): ( isLoading ? (<LoadingOutlined/>) :(
             <Col style={{marginLeft:'5px',marginRight:'5px'}}>
             <Row justify='center'>
                 <img style={{width: '300px', height: 'auto'}} src={currentFilm.primaryImage}/>
@@ -67,7 +69,13 @@ export function RTKMoviePage () {
                 </Col>
             </Row>
             <Flex justify='space-around'>
-                 {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
+                 {currentFilm.genres.map((genre: string) => 
+                    (<Tag 
+                        color='#F5B800' 
+                        style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} 
+                        onClick={()=>navigate(`/search?name=&genres=${genre}`)}>
+                            {genre}
+                    </Tag>))}
             </Flex>
             <Row>
             <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
@@ -106,13 +114,13 @@ export function RTKMoviePage () {
         ))}
         </Row>
             </Col>
-            )}
+            ))}
             </>
         )
     }
     return (
         <>
-        {currentFilm===null || error || isLoading ? (<Empty/>) : (
+        {currentFilm===null || error ? (<Empty/>) : ( isLoading ? (<LoadingOutlined/>) :(
             <Col>
         <Row  gutter={16} wrap={false}>
             <Col>
@@ -135,7 +143,13 @@ export function RTKMoviePage () {
                 </Col>
             </Row>
             <Flex justify='space-around'>
-                {currentFilm.genres.map((genre) => (<Tag color='#F5B800' style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} onClick={()=>navigate(`/search?name=&genres=${genre}`)}>{genre}</Tag>))}
+                {currentFilm.genres.map((genre:  string) => 
+                    (<Tag 
+                        color='#F5B800' 
+                        style={{cursor:'pointer' , color:'#333333' , fontWeight:'bold'}} 
+                        onClick={()=>navigate(`/search?name=&genres=${genre}`)}>
+                            {genre}
+                    </Tag>))}
             </Flex>
             <Paragraph style={{marginTop:'20px' , color:'#ffffff'}}>{currentFilm.description}</Paragraph>
             </Col>
@@ -174,7 +188,7 @@ export function RTKMoviePage () {
         ))}
         </Row>
         </Col>
-        )}
+        ))}
         </>
     )
 }

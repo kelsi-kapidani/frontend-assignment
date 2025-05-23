@@ -3,6 +3,7 @@ import { Card , Col , Row , Table , Grid, Empty } from "antd"
 import { useSearchMoviesQuery } from '../../Slices/imdbAPI'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../main'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const { Meta } = Card;
 const { useBreakpoint } = Grid;
@@ -19,15 +20,16 @@ export function RTKSearchResult () {
 
     const { data, error, isLoading } = useSearchMoviesQuery({name: searchTitle, genre: firstGenre});
 
+    type Film = typeof data.results[0];
     
-    const listOfFilms = data?.results || [];
+    const listOfFilms: Film[]= data?.results || [];
     
     const columns = [
         {
             title: 'Poster',
             dataIndex: 'poster',
             key: 'poster',
-            render: (_: string, film: any) => (
+            render: (_: string, film: Film) => (
               <img 
                 src={film.primaryImage} 
                 alt={film.primaryTitle} 
@@ -39,7 +41,7 @@ export function RTKSearchResult () {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (_: string, film: any) => (
+            render: (_: string, film: Film) => (
               <div 
                 style={{ textAlign: 'center'}} 
               >
@@ -84,7 +86,7 @@ export function RTKSearchResult () {
     if (screens.xs) {
         return(
         <>
-        { error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+        { error ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (  isLoading ? (<LoadingOutlined/>) :(
         <Row gutter={[24,32]}>
         {listOfFilms.map(film=>(
              <Col xs={12} key={film.id}>
@@ -117,13 +119,13 @@ export function RTKSearchResult () {
            </Col>
         ))}
         </Row>
-        )}
+        ))}
         </>
         )
     }
         return (
             <>
-        { error || isLoading ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (
+        { error ? (<Empty style={{marginTop:'50px' , marginLeft:'100px'}}/>) : (  isLoading ? (<LoadingOutlined/>) :(
         <Table
             columns={columns}
             dataSource={listOfFilms}
@@ -133,7 +135,7 @@ export function RTKSearchResult () {
             onRow={(record) => ({onClick: () => navigate(`/films/${record.id}`)})}
             style={{cursor:'pointer'}}
       />
-       )}
+       ))}
        </>
     )
     
