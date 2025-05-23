@@ -65,11 +65,11 @@ export function RTKSearchResult () {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            render: (description: string) => (
-              <div style={{ textAlign: 'center' }}>
-                {description ?? 'No description available'}
-              </div>
-            ),
+            render: (description: string) => {
+              const text = description ?? 'No description available';
+              const truncated = text.length > 150 ? text.slice(0, 147) + '...' : text;
+                return (<div style={{ textAlign: 'center' }}>{truncated}</div>);
+            },
           },
         {
           title: 'Rating',

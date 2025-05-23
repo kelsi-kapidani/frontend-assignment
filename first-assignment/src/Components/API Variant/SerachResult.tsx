@@ -42,7 +42,7 @@ export function SearchResult () {
             key: 'poster',
             render: (_: string, film: Film) => (
               <img 
-                src={film.poster} 
+                src={film.poster ?? '/assets/no_image.jpeg'} 
                 alt={film.name} 
                 style={{ width: 80, height: 'auto'}} 
               />
@@ -58,7 +58,7 @@ export function SearchResult () {
               >
                 {film.name}
               </div>
-            )
+            ),
           },
         {
           title: 'Genres',
@@ -76,19 +76,19 @@ export function SearchResult () {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            render: (description: string) => (
-              <div style={{ textAlign: 'center' }}>
-                {description}
-              </div>
-            ),
+            render: (description: string) => {
+              const text = description ?? 'No description available';
+              const truncated = text.length > 150 ? text.slice(0, 147) + '...' : text;
+                return (<div style={{ textAlign: 'center' }}>{truncated}</div>);
+            },
           },
         {
           title: 'Rating',
-          dataIndex: 'rating',
-          key: 'rating',
-          render: (rating: number) => (
+          dataIndex: 'averageRating',
+          key: 'averageRating',
+          render: (averageRating: number) => (
             <div style={{ textAlign: 'center' }}>
-              {rating}
+              {averageRating ? (averageRating/2) : ('No rating available')}
             </div>
           ),
         },
